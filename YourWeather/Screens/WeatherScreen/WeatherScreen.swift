@@ -19,7 +19,7 @@ struct WeatherScreen: View {
             } else {
                 if let weather = viewModel.weatherResponse {
                     VStack(spacing: 16) {
-                        Text(viewModel.city)
+                        Text(weather.name)
                             .font(.largeTitle)
                             .bold()
                         if let icon = viewModel.weatherIcon {
