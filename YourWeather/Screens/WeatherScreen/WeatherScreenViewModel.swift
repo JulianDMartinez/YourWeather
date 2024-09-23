@@ -91,7 +91,7 @@ class WeatherScreenViewModel {
          */
         guard locationService.isLocationFeatureEnabled else {
             errorMessage = "Location services isn't currently enabled. Please enable location " +
-                "services under Settings -> YourWeather use the current location."
+                "services under Settings -> YourWeather to use the current location."
             return
         }
 
