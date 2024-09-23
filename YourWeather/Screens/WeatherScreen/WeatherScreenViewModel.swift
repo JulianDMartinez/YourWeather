@@ -150,6 +150,10 @@ class WeatherScreenViewModel {
         }
     }
 
+    /*
+     Using UserDefaults directly since this is a single key value pair save and search.
+     For more complex persistence, I would extract this logic into a persistence dedicated object.
+    */
     func loadLastSearchedCity() {
         if let lastCity = UserDefaults.standard.string(forKey: "LastSearchedCity") {
             city = lastCity
