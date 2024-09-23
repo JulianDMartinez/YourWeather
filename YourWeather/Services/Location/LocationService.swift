@@ -5,15 +5,17 @@
 //  Created by Julian Martinez on 9/23/24.
 //
 
-import Foundation
 import CoreLocation
+import Foundation
 
 protocol LocationServiceProtocol {
-    func requestLocationPermission()
+    var isLocationFeatureEnabled: Bool { get set }
     func getCurrentLocation(completion: @escaping (Result<CLLocationCoordinate2D, Error>) -> Void)
 }
 
 class LocationService: NSObject, LocationServiceProtocol {
+    var isLocationFeatureEnabled = false
+
     private let locationManager = CLLocationManager()
     private var locationCompletion: ((Result<CLLocationCoordinate2D, Error>) -> Void)?
 
@@ -22,13 +24,14 @@ class LocationService: NSObject, LocationServiceProtocol {
         locationManager.delegate = self
     }
 
-    func requestLocationPermission() {
-        locationManager.requestWhenInUseAuthorization()
-    }
-
     func getCurrentLocation(completion: @escaping (Result<CLLocationCoordinate2D, Error>) -> Void) {
         locationCompletion = completion
-        locationManager.requestLocation()
+
+        if locationManager.authorizationStatus == .authorizedWhenInUse {
+            locationManager.requestLocation()
+        } else {
+            completion(.failure(LocationError.noAuthorization))
+        }
     }
 }
 
@@ -40,6 +43,7 @@ extension LocationService: CLLocationManagerDelegate {
         } else {
             locationCompletion?(.failure(LocationError.noLocationData))
         }
+        
         locationCompletion = nil
     }
 
@@ -47,8 +51,28 @@ extension LocationService: CLLocationManagerDelegate {
         locationCompletion?(.failure(error))
         locationCompletion = nil
     }
+    
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        switch manager.authorizationStatus {
+        case .authorizedWhenInUse:
+            isLocationFeatureEnabled = true
+            break
+
+        case .restricted, .denied:
+            isLocationFeatureEnabled = false
+            break
+
+        case .notDetermined:
+            locationManager.requestWhenInUseAuthorization()
+            break
+
+        default:
+            break
+        }
+    }
 }
 
 enum LocationError: Error {
     case noLocationData
+    case noAuthorization
 }
