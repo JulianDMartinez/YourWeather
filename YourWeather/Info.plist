@@ -6,7 +6,7 @@
 	<string>${APP_ENVIRONMENT}</string>
 	<key>OPEN_WEATHER_BASE_URL</key>
 	<string>${OPEN_WEATHER_BASE_URL}</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Location access is needed to provide accurate weather information in your current area.</string>
+	<key>OPEN_WEATHER_ICON_BASE_URL</key>
+	<string>${OPEN_WEATHER_ICON_BASE_URL}</string>
 </dict>
 </plist>
