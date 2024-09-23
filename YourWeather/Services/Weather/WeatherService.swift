@@ -9,6 +9,7 @@ import Foundation
 
 protocol WeatherServiceProtocol {
     func fetchWeather(forLatitude latitude: Double, longitude: Double) async throws -> WeatherResponse
+    func fetchWeatherIcon(iconCode: String) async throws -> Data
     func geocode(cityName: String) async throws -> [GeocodingResponse]
 }
 
@@ -39,6 +40,14 @@ class WeatherService: WeatherServiceProtocol {
         let urlRequest = URLRequest(url: url)
         return try await apiClient.performRequest(with: urlRequest)
     }
+    
+    func fetchWeatherIcon(iconCode: String) async throws -> Data {
+        let urlString = "\(GlobalSettings.openWeatherBasePath)/img/wn/\(iconCode)@2x.png"
+        guard let url = URL(string: urlString) else { throw WeatherServiceError.iconNotFound }
+        let (data, _) = try await URLSession.shared.data(from: url)
+        return data
+    }
+       
 
     func geocode(cityName: String) async throws -> [GeocodingResponse] {
         let urlString = "\(GlobalSettings.openWeatherBasePath)/geo/1.0/direct"
@@ -64,4 +73,5 @@ class WeatherService: WeatherServiceProtocol {
 enum WeatherServiceError: Error {
     case invalidURL
     case cityNotFound
+    case iconNotFound
 }
