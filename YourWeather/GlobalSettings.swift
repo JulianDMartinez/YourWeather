@@ -38,6 +38,14 @@ enum GlobalSettings {
         return basePath
     }()
     
+    static let openWeatherIconBasePath = {
+        guard let basePath = Bundle.main.infoDictionary?["OPEN_WEATHER_ICON_BASE_URL"] as? String else {
+            // The app should not run if openWeatherBasePath is nil, as it needs the base URL to function.
+            preconditionFailure("openWeatherIconBasePath must not be nil")
+        }
+        return basePath
+    }()
+    
     /*
         SecretValues is pursperfully not included in repo to not include API key. Depending on the key's risk
         we may not want to include the key in the mobile client's bundle and instead implement a backend

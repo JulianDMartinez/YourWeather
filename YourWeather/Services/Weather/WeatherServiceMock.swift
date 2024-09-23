@@ -6,7 +6,6 @@
 //
 
 import Foundation
-@testable import YourWeather
 
 class WeatherServiceMock: WeatherServiceProtocol {
     var weatherResult: Result<WeatherResponse, Error>?

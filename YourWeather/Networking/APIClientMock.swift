@@ -6,10 +6,6 @@
 //
 
 import Foundation
-@testable import YourWeather
-
-import Foundation
-@testable import YourWeather
 
 class APIClientProtocolMock: APIClientProtocol {
     var result: Result<Data, Error>?

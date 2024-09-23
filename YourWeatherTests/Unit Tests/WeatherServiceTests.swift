@@ -73,7 +73,10 @@ final class WeatherServiceTests: XCTestCase {
 
             // Then
             XCTAssertEqual(data, expectedData)
-            XCTAssertEqual(apiClientMock.urlRequest?.url?.absoluteString, "\(GlobalSettings.openWeatherBasePath)/img/wn/01d@2x.png")
+        XCTAssertEqual(
+            apiClientMock.urlRequest?.url?.absoluteString,
+            "\(GlobalSettings.openWeatherIconBasePath)/img/wn/01d@2x.png"
+        )
         }
 
         func testFetchWeatherIconFailure() async {

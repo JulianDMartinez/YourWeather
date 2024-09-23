@@ -40,6 +40,10 @@ final class GlobalSettingsTests: XCTestCase {
             infoDictionary["OPEN_WEATHER_BASE_URL"],
             "OPEN_WEATHER_BASE_URL key is missing in Info.plist"
         )
+        XCTAssertNotNil(
+            infoDictionary["OPEN_WEATHER_ICON_BASE_URL"],
+            "OPEN_WEATHER_ICON_BASE_URL key is missing in Info.plist"
+        )
     }
 
     func testGlobalSettingsValuesAccessDoNotThrow() {

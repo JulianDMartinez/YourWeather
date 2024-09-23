@@ -42,7 +42,7 @@ class WeatherService: WeatherServiceProtocol {
     }
     
     func fetchWeatherIcon(iconCode: String) async throws -> Data {
-        let urlString = "\(GlobalSettings.openWeatherBasePath)/img/wn/\(iconCode)@2x.png"
+        let urlString = "\(GlobalSettings.openWeatherIconBasePath)/img/wn/\(iconCode)@2x.png"
         
         guard let url = URL(string: urlString) else {
             throw WeatherServiceError.iconNotFound

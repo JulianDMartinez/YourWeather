@@ -6,7 +6,6 @@
 //
 
 import CoreLocation
-@testable import YourWeather
 
 class LocationServiceMock: LocationServiceProtocol {
     var isLocationFeatureEnabled: Bool = true
