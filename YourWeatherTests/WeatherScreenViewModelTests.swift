@@ -15,18 +15,30 @@ final class WeatherScreenViewModelTests: XCTestCase {
     var viewModel: WeatherScreenViewModel!
     var weatherServiceMock: WeatherServiceMock!
     var locationServiceMock: LocationServiceMock!
+    var container: DIContainer!
 
     override func setUp() {
         super.setUp()
         weatherServiceMock = WeatherServiceMock()
         locationServiceMock = LocationServiceMock()
-        viewModel = WeatherScreenViewModel(weatherService: weatherServiceMock, locationService: locationServiceMock)
+        let apiClientMock = APIClientMock()
+
+        // Initialize DIContainer with mock services
+        container = DIContainer(
+            apiClient: apiClientMock,
+            weatherService: weatherServiceMock,
+            locationService: locationServiceMock
+        )
+
+        // Initialize ViewModel with the container
+        viewModel = WeatherScreenViewModel(container: container)
     }
 
     override func tearDown() {
         viewModel = nil
         weatherServiceMock = nil
         locationServiceMock = nil
+        container = nil
         super.tearDown()
     }
 

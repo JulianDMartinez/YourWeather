@@ -7,7 +7,7 @@
 
 import Foundation
 
-class APIClientProtocolMock: APIClientProtocol {
+class APIClientMock: APIClientProtocol {
     var result: Result<Data, Error>?
     var urlRequest: URLRequest?
 
