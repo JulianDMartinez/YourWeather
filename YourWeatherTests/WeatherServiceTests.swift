@@ -10,11 +10,11 @@ import XCTest
 
 final class WeatherServiceTests: XCTestCase {
     var weatherService: WeatherService!
-    var apiClientMock: APIClientProtocolMock!
+    var apiClientMock: APIClientMock!
 
     override func setUp() {
         super.setUp()
-        apiClientMock = APIClientProtocolMock()
+        apiClientMock = APIClientMock()
         weatherService = WeatherService(apiClient: apiClientMock)
     }
 

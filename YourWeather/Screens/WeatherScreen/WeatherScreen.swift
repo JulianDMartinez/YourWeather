@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-import SwiftUI
-
 struct WeatherScreen: View {
+    @Environment(AppCoordinator.self) private var coordinator
+    
     @State var viewModel: WeatherScreenViewModel
 
     var body: some View {
@@ -62,6 +62,11 @@ struct WeatherScreen: View {
                 Text("Use Current Location")
             }
             .padding()
+
+            Button("Back to Home") {
+                coordinator.popToRoot()
+            }
+            .padding()
         }
         .task {
             viewModel.loadLastSearchedCity()
@@ -71,8 +76,13 @@ struct WeatherScreen: View {
 }
 
 #Preview {
-    WeatherScreen(viewModel: WeatherScreenViewModel(
-        weatherService: WeatherService(apiClient: APIClient()),
-        locationService: LocationService()
-    ))
+    let diContainer = DIContainer.makeDefault()
+    
+    WeatherScreen(
+        viewModel: WeatherScreenViewModel(
+            container: diContainer
+        )
+    )
+    .environment(AppCoordinator(container: diContainer))
 }
+    
