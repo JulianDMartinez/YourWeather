@@ -2,16 +2,19 @@
 
 Simple weather app implemented for coding assignment.
 
-https://github.com/user-attachments/assets/6ceffd2c-ba34-476c-916b-1c2e55345a2f
+
+https://github.com/user-attachments/assets/58a055d0-8d8a-4a28-b84e-9f452f2e6752
+
+
 
 ## Tech
 - Coding Language - Swift
-- Architecture Pattern - MVVM
+- Architecture Pattern - MVVM-C
 - Networking - URLSession
 - Unit Tests / UI Tests - XCTest
 - UI - SwiftUI
-- Dependency Injection - implanted natively without libraries
-- Navigation - Kept as single view screen. If additional screens are added, this can be done with SwiftUI NavigationStack paths and coordinator pattern
+- Dependency Injection - Implemented natively without libraries
+- Navigation - SwiftUI NavigationStack, NavigationPath, and coordinator pattern
 
 
 ## Use Instructions:
