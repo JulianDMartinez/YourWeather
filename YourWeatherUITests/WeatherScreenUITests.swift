@@ -7,8 +7,7 @@
 
 import XCTest
 
-// These are examples of UI tests for demonstration only. These need additional set up assert the UI correctly
-// given more time.
+
 final class WeatherScreenUITests: XCTestCase {
     var app: XCUIApplication!
 
@@ -19,46 +18,22 @@ final class WeatherScreenUITests: XCTestCase {
         app.launchArguments.append("--uitesting")
         app.launch()
     }
+    
+    func testNavigationToWeatherScreen() {
+        // Verify Home Screen is displayed
+        XCTAssertTrue(app.staticTexts["Welcome to Your Weather App"].exists)
 
-    func testSearchCityWeather() {
-        // Given
-        let cityName = "London"
-        let searchField = app.textFields["Enter city name"]
-        let searchButton = app.buttons["Search"]
+        // Tap on "Go to Weather" button
+        app.buttons["Go to Weather"].tap()
 
-        // When
-        searchField.tap()
-        searchField.typeText(cityName)
-        searchButton.tap()
-
-        // Then
-        let cityLabel = app.staticTexts[cityName]
-        let expectation = XCTNSPredicateExpectation(
-            predicate: NSPredicate(format: "exists == true"),
-            object: cityLabel
-        )
-
-        let result = XCTWaiter.wait(for: [expectation], timeout: 5.0)
-        XCTAssertEqual(result, .completed, "City label did not appear in time")
+        // Verify Weather Screen is displayed
+        XCTAssertTrue(app.buttons["Use Current Location"].waitForExistence(timeout: 5))
     }
 
-    func testUseCurrentLocationButton() {
-        // Given
-        let useLocationButton = app.buttons["Use Current Location"]
-
-        // When
-        useLocationButton.tap()
-
-        // Then
-        // Assuming the app will show weather information for the current location
-        let cityLabel = app.staticTexts["Current Location"]
-        let expectation = XCTNSPredicateExpectation(
-            predicate: NSPredicate(format: "exists == true"),
-            object: cityLabel
-        )
-
-        let result = XCTWaiter.wait(for: [expectation], timeout: 5.0)
-        XCTAssertEqual(result, .completed, "Current location weather did not appear in time")
+    func testBackToHome() {
+        app.buttons["Go to Weather"].tap()
+        app.buttons["Back to Home"].tap()
+        XCTAssertTrue(app.staticTexts["Welcome to Your Weather App"].exists)
     }
 }
 

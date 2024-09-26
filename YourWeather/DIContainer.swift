@@ -7,20 +7,38 @@
 
 import Foundation
 
-@MainActor
 class DIContainer {
     let apiClient: APIClientProtocol
     let weatherService: WeatherServiceProtocol
     let locationService: LocationServiceProtocol
 
-    let weatherScreenVM: WeatherScreenViewModel
+    init(
+        apiClient: APIClientProtocol,
+        weatherService: WeatherServiceProtocol,
+        locationService: LocationServiceProtocol
+    ) {
+        self.apiClient = apiClient
+        self.weatherService = weatherService
+        self.locationService = locationService
+    }
 
-    init() {
-        apiClient = APIClient()
-        weatherService = WeatherService(apiClient: apiClient)
-        locationService = LocationService()
+    static func makeDefault() -> DIContainer {
+        let apiClient = APIClient()
+        let weatherService = WeatherService(apiClient: apiClient)
+        let locationService = LocationService()
+        return DIContainer(
+            apiClient: apiClient,
+            weatherService: weatherService,
+            locationService: locationService
+        )
+    }
 
-        weatherScreenVM = WeatherScreenViewModel(
+    static func makeMock() -> DIContainer {
+        let apiClient = APIClientMock()
+        let weatherService = WeatherServiceMock()
+        let locationService = LocationServiceMock()
+        return DIContainer(
+            apiClient: apiClient,
             weatherService: weatherService,
             locationService: locationService
         )

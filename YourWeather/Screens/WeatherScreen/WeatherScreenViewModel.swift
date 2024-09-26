@@ -32,11 +32,11 @@ class WeatherScreenViewModel {
     let locationService: LocationServiceProtocol
     private let iconCache = NSCache<NSString, UIImage>()
 
-    init(weatherService: WeatherServiceProtocol, locationService: LocationServiceProtocol) {
-        self.weatherService = weatherService
-        self.locationService = locationService
+    init(container: DIContainer) {
+        self.weatherService = container.weatherService
+        self.locationService = container.locationService
     }
-
+    
     func fetchWeatherByCity() async {
         isLoading = true
         errorMessage = nil
